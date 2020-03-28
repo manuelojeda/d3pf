@@ -42,11 +42,13 @@ import { EnumRegion } from '@/interfaces/Region'
 
 export default defineComponent({
   name: 'HomeForm',
-  setup () {
+  setup (props, context) {
     const battleTag = ref<string>('')
     const region = ref<EnumRegion>(EnumRegion.US)
 
-    const searchBattleTag = async (): Promise<any> => {
+    const searchBattleTag = (): void => {
+      const route = `/region/${region.value}/profile/${battleTag.value}`
+      context.root.$router.push(route)
     }
 
     return {
