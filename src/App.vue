@@ -1,29 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <LoadLayout v-if="isLoading">
+      <BaseLoading/>
+    </LoadLayout>
+
+    <MainLayout v-else/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { MainLayout, LoadLayout } from '@/layouts/'
+import BaseLoading from '@/components/BaseLoading.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
-    HelloWorld
+    MainLayout,
+    LoadLayout,
+    BaseLoading
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.loading.isLoading
+    }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 60px 0;
+  color: #ffffff; // Le ponemos un color de letra blanco para que resalte
+  background-color: #15202b; // Le cambiamos el color de fondo por un azul marino oscuro
 }
 </style>
