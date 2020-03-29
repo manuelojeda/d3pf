@@ -1,8 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const clientId: string = 'acd39013a6ec46cd85bf036d9bd462e6'
-const clientSecret: string = 'lfCwqXcQo8ceI83MFFEqbGtb90ErjrVM'
-
 const region = 'us'
 const API_URL = `https://${region}.battle.net/oauth/token`
 
@@ -14,8 +11,8 @@ function getToken (): Promise<AxiosResponse> {
       'Content-Type': 'multipart/form-data'
     },
     auth: {
-      username: clientId as string,
-      password: clientSecret as string
+      username: process.env.VUE_APP_CLIENT_ID,
+      password: process.env.VUE_APP_CLIENT_SECRET
     }
   }
 
