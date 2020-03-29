@@ -3,6 +3,7 @@ import CompApi from '@vue/composition-api'
 
 import '@/plugins/BootstrapVue'
 import '@/plugins/FontAwesome'
+import '@/directives'
 import App from './App.vue'
 import router from './router'
 import store from './store'

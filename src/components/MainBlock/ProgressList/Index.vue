@@ -1,0 +1,55 @@
+<template>
+  <div class="progression-bosses pt-4 mt-5 border-top">
+    <h2 class="font-diablo mb-4">Progression</h2>
+    <b-row>
+      <b-col v-for="(val, key) in sortedActs" :key="key" class="col-12 col-md-2">
+        <div class="bg-dark rounded mb-2">
+          <progress-item :act="{actNum: key, value: val}"/>
+        </div>
+      </b-col>
+    </b-row>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, computed } from '@vue/composition-api'
+import ProgressItem from './ProgressItem.vue'
+
+export default defineComponent({
+  name: 'ProgressList',
+  props: {
+    acts: {
+      required: true,
+      type: Object
+    }
+  },
+  components: {
+    ProgressItem
+  },
+  setup (props) {
+    const sortedActs = computed(() => {
+      return Object.keys(props.acts)
+        .sort()
+        .reduce((a, c) => {
+          a[c] = props.acts[c]
+          return a
+        }, {})
+    })
+
+    return {
+      sortedActs
+    }
+  }
+})
+</script>
+
+<style lang="stylus" scoped>
+.progression-bosses
+  .boss-img
+    display block
+
+    .act
+      margin 0 auto
+      width 50px
+      height 55px
+</style>

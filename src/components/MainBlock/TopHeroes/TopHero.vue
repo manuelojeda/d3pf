@@ -1,16 +1,16 @@
 <template>
   <div class="hero-portrait-wrapper mb-5 mb-sm-0">
     <div class="bg-secondary d-flex justify-content-center p-3 p-sm-0">
-      <div :class="heroClass"></div>
+      <div :class="heroClass" class="hero-image" @click="goToHero(hero.id)"></div>
     </div>
     <div class="p-2 bg-dark">
       <h5 class="text-truncate m-0 text-center title-name font-diablo" :class="{'bg-danger': hero.hardcore}">
         {{ hero.name }}
-        <img v-if="hero.seasonal" src="@/assets/img/leaf.png" width="12px">
+        <img v-if="hero.seasonal" src="@/assets/img/leaf.png" width="12px" @click="goToHero(hero.id)">
       </h5>
       <div class="d-flex justify-content-between border-top border-secondary pt-2 align-items-center mt-2">
         <small class="elite-kills">
-          <span class="text-monospace">{{ hero.kills.elites }}</span>
+          <span class="text-monospace">{{ formatNumber(hero.kills.elites) }}</span>
           Elite kills
         </small>
         <small class="level-circle" :class="{'text-danger': hero.dead}"> {{ hero.level }} </small>
@@ -21,6 +21,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from '@vue/composition-api'
+import { formatNumber } from '@/filters/numeral'
+import useGoToHero from '@/composables/useGoToHero'
+
 export default defineComponent({
   name: 'TopHero',
   props: {
@@ -29,14 +32,16 @@ export default defineComponent({
       required: true
     }
   },
-  setup (props) {
+  setup (props, context) {
     const heroClass = computed((): string => {
       const gender = props.hero.gender === 0 ? 'male' : 'female'
       return `hero-${props.hero.classSlug} ${gender}`
     })
 
     return {
-      heroClass
+      heroClass,
+      formatNumber,
+      ...useGoToHero(props, context)
     }
   }
 })
@@ -57,4 +62,7 @@ export default defineComponent({
     border-radius 13px
     background-color #15202b
     box-shadow 0 0 0 2px #6c757d
+
+.hero-image
+  cursor pointer
 </style>

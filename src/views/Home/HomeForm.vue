@@ -6,6 +6,7 @@
           BattleTag:
         </label>
         <input
+          v-focus
           v-model="battleTag"
           type="text"
           class="form-control"
