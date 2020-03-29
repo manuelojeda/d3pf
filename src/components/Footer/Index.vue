@@ -46,7 +46,7 @@ export default defineComponent({
       {
         classes: ['fab', 'github'],
         color: '#e4e4e4',
-        href: 'https://github.com/baumannzone'
+        href: 'https://github.com/manuelojeda'
       },
       {
         classes: ['fab', 'font-awesome'],
